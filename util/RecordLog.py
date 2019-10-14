@@ -27,13 +27,21 @@ class Logger(object):
         # 日志输出格式
         fmt = logging.Formatter('%(asctime)s - %(filename)s:[%(lineno)s] - [%(levelname)s] - %(message)s')
         # 日志文件名称
-        curr_time = time.strftime("%Y-%m-%d")
-        self.LogFileName = LOG_DIR + r'/' + 'log' + curr_time + '.txt'
+        curr_time = time.strftime('%Y%m%d%H%M', time.localtime(time.time()))
+        self.LogFileName = LOG_DIR + r'/' + 'log' + curr_time + '.log'
+
         # 设置文件输出
         fh = logging.FileHandler(self.LogFileName)
         fh.setFormatter(fmt)
         fh.setLevel(file_level)  # 日志级别
+        # 设置控制台输出log
+        ch = logging.StreamHandler()
+        ch.setFormatter(fmt)
+        ch.setLevel(logging.INFO)
+
+        # 给logger添加handler
         self.logger.addHandler(fh)
+        self.logger.addHandler(ch)
 
 
 if __name__ == '__main__':
