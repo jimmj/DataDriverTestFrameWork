@@ -9,12 +9,12 @@
 @GROUP: 878565760
 ------------------------------------
 """
-import os
+import os,logging
 from datetime import datetime, date
-
+from util.RecordLog import Logger
 from config.config import IMAGE_DIR as IMG
 
-
+log=Logger(__name__, logging.INFO)
 class DateTime(object):
 
     @staticmethod
@@ -23,7 +23,7 @@ class DateTime(object):
         try:
             current_date = date.today()
         except Exception as e:
-            raise e
+            log.logger.info(e)
         else:
             return str(current_date)
 
